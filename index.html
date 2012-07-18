@@ -18,10 +18,10 @@
 <h3 id="why-are-we-here">Why are we here?</h3>
 
 <ul>
-  <li>GNOME is people and code</li>
+  <li>GNOME is people and code that approximately orbit GTK+, Free Software, etc.</li>
   <li>People have different motivations</li>
   <li>Need <b>clearly defined mission</b> (Mozilla: "open web")</li>
-  <li>Need <b>success metric</b> (#users? #commits? #applications? #forks? #features? #...?)</li>
+  <li>Need <b>success metric</b> (#users? #commits? #lines-of-code? #applications? #forks? #features? #...?)</li>
 </ul>
 </article>
       
@@ -51,24 +51,105 @@ we can't make the entire Internet happy.</li>
 </article>
 
 <article>
-<h3 id="feedback-cycle">Feedback cycle of "regular users" and GNOME</h3>
+<h3 id="feedback-cycle">Identifying regressions/feedback cycle</h3>
 <ul>
-  <li>People get GNOME from "distributions"</li>
-  <li>If we're lucky, they sync their releases approximately to the
-    GNOME cycle, and thus we only have a 1 month lag before they can upgrade</li>
-  <li>"unstable" distributions - mix of unstable GNOME <b>and</b> unstable other things</li>
-  <li>Live CDs - recent innovation, but unrealistic to expect people to download 600MB regularly</li>
+  <li>Almost all testing during the development cycle is entirely
+      manual, run on individual developer machines.</li>
+  <li>Even if we had extensive automated integration tests, it's no
+      substitute for actual humans attempting to use the code
+      for <i>real</i> work.</li>
+  <li>Almost everyone, except for developers who need to operate
+      on the code, rely on binaries.  Which means in practice,
+      we rely on "distributions".  And distributions here means
+      <i>packages</i>.</li>
+  <li>Recent innovations like Live CDs help, but have downsides.</li>
 </ul>
 
 </article>
 
 <article>
-<h3 id="but-rpm-and-dpkg-screw-us">RPM and dpkg make avoiding regressions too hard</h3>
+<h3 id="flow-of-gnome">A regression is created by a commit</h3>
+<ul>
+  <li>Code doesn't break spontaneously; someone had to do it, and with
+  revision control the change is associated with a <i>person</i>.</li>
+  <li>git commit --[time]--> tarball --[time]--> package -> repository --[time]-->
+     apt-get/zypper/yum -> filesystem -> reboot -> see it</li>
+  <li>Oh also, if it breaks, you're screwed.</li>
+</ul>
+</article>
+
+
+<article>
+<h3 id="rpm-and-dpkg-versioning">RPM and dpkg make reverting regressions too hard</h3>
 <ul>
   <li>Both define "upgrade" to be increase in version number</li>
-  <li>Hacking around this (epoch, Debian <b>~really</b>) are too painful and ugly</li>
+  <li>Hacking around this (RPM epoch, Debian <b>~really</b>) are too painful and ugly</li>
   <li>I believe this semantic deeply influcences our culture; kernel
       often reverts commits, rare to see discussed in "distributions"</li>
+</ul>
+</article>
+
+<article>
+<h3 id="rpm-and-dpkg-even-worse">RPM and dpkg make development too hard</h3>
+<ul>
+  <li>Once you have a development version of GNOME installed via packages,
+      modifying it is incredibly painful</li>
+  <li>There's a reason we've kept using jhbuild</li>
+  <li>Cripples the "Get GNOME via Live CD" approach; you can see but you
+      can't modify</li>
+</ul>
+</article>
+
+<article>
+<h3 id="ostree-for-development">OSTree for developers and testers</h3>
+<ul>
+  <li>"git for operating system builds"</li>
+  <li>Has essential property, like jhbuild and Live CDs, that it
+      does <i>not disrupt your existing system</i>.</li>
+  <li>Unlike jhbuild, delivers a complete system; you reboot into it.</li>
+  <li>Unlike jhbuild, you download binaries from build server</li>
+  <li>Unlike Live CD, you have your actual /home, and a writable filesystem.</li>
+  <li>Unlike Live CD, easy to modify source code from system "as you see it",
+      and reboot into your modified system</li>
+</ul>
+</article>
+
+<article>
+<h3 id="bisecting-regressions">Bisecting operating system builds</h3>
+<ul>
+  <li>A git commit causes a regression; OSTree tracks set of git
+      repositories and revisions that go into each tree</li>
+  <li>You can bisect across operating system builds; "my sound broke in the last week"</li>
+  <li>I do actually expect users of Free Software to help participate
+      in bisection.</li>
+</ul>
+</article>
+
+<article>
+<h3 id="gnome-os-relation">"GNOME OS"</h3>
+<ul>
+  <li>A term tossed about; means different things to different people</li>
+  <li>My <b>personal</b> motivations:</li>
+  <li>Improve quality in FOSS (for everyone)</li>
+  <li>Return focus to actual source code (i.e. git), not packages</li>
+  <li>Eliminating the entire concept of "packages" also by side effect eliminates
+      most of the difference between "distributions"</li>
+  <li>But it still makes sense to include "GNOME" in much larger
+    collections such as Debian.</li>
+</ul>
+</article>
+
+<article>
+<h3 id="should-not-block-on-kde">GNOME should not block on KDE</h3>
+<ul>
+  <li>For GNOME 3.0/Fedora 15, GNOME depended on NetworkManager
+      0.9, KDE depended on 0.8</li>
+  <li>Could be called a Fedora problem, but then there is a notable
+      section of Fedora users that only use GNOME, and Fedora is
+      currently an important mechanism by which GNOME code is
+      distributed</li>
+  <li>Solution: Share source code, as much as possible.  Don't
+      (necessarily) share binaries.</li>
 </ul>
 </article>
 
