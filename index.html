@@ -18,10 +18,29 @@
 <h3 id="why-are-we-here">Why are we here?</h3>
 
 <ul>
-  <li>GNOME is people and code that approximately orbit GTK+, Free Software, etc.</li>
+  <li>GNOME is people and code that approximately orbit nuclei such as
+      GTK+, and Free Software.</li>
   <li>People have different motivations</li>
+</ul>
+</article>
+
+<article>
+<h3 id="what-should-we-do-here">What should we do here?</h3>
+<ul>
   <li>Need <b>clearly defined mission</b> (Mozilla: "open web")</li>
   <li>Need <b>success metric</b> (#users? #commits? #lines-of-code? #applications? #forks? #features? #...?)</li>
+</ul>
+</article>
+
+<article>
+<h3 id="history-of-gnome-plans">A brief, incomplete history of GNOME</h3>
+<ul>
+  <li>Don't rely on proprietary Qt toolkit</li>
+  <li>GTK+2, GNOME 2, Sun involvement, a11y</li>
+  <li>Ubuntu</li>
+  <li>https://live.gnome.org/10x10</li>
+  <li>https://live.gnome.org/OnlineDesktop/</li>
+  <li>http://www.gnome.org/gnome-3/</li>
 </ul>
 </article>
       
@@ -29,7 +48,7 @@
 <h3 id="we-are-successful-enough">How about: We've already succeeded</h3>
 <ul>
   <li>A lot of people use our software, for work and play.</li>
-  <li>But we regress too often =(</li>
+  <li>But we <i>regress</i> too often =(</li>
   <li>Thus primary goal is increasing success while avoiding regressions</li>
 </ul>
 </article>
@@ -74,7 +93,6 @@ we can't make the entire Internet happy.</li>
   revision control the change is associated with a <i>person</i>.</li>
   <li>git commit --[time]--> tarball --[time]--> package -> repository --[time]-->
      apt-get/zypper/yum -> filesystem -> reboot -> see it</li>
-  <li>Oh also, if it breaks, you're screwed.</li>
 </ul>
 </article>
 
@@ -86,6 +104,7 @@ we can't make the entire Internet happy.</li>
   <li>Hacking around this (RPM epoch, Debian <b>~really</b>) are too painful and ugly</li>
   <li>I believe this semantic deeply influcences our culture; kernel
       often reverts commits, rare to see discussed in "distributions"</li>
+  <li>Oh also, if it breaks, you're screwed.</li>
 </ul>
 </article>
 
@@ -140,7 +159,7 @@ we can't make the entire Internet happy.</li>
 </article>
 
 <article>
-<h3 id="should-not-block-on-kde">GNOME should not block on KDE</h3>
+<h3 id="should-not-block-on-kde">Example: GNOME should not block on KDE</h3>
 <ul>
   <li>For GNOME 3.0/Fedora 15, GNOME depended on NetworkManager
       0.9, KDE depended on 0.8</li>
@@ -150,6 +169,30 @@ we can't make the entire Internet happy.</li>
       distributed</li>
   <li>Solution: Share source code, as much as possible.  Don't
       (necessarily) share binaries.</li>
+</ul>
+</article>
+
+<article>
+<h3 id="server-versus-client">Example: What should happen when you plug in an Ethernet cable?</h3>
+<ul>
+  <li>In Fedora, NetworkManager (enabled by default, but not installed
+      on servers until recently), used to automatically DHCP when an
+      Ethernet cable was plugged</li>
+  <li>Because of server concerns, NetworkManager changed to not do this</li>
+  <li>But this breaks client.  Have no sane mechanism to distinguish between
+      client and servers; both just sets of packages.</li>
+  <li>Solution: Share source code, as much as possible.  Don't
+      (necessarily) share binaries.</li>
+</ul>
+</article>
+
+<article>
+<h3 id="system-integration">The myth of the "DE"</h3>
+<ul>
+  <li>There's a bit more to it than picking some letters to prepend to DE</li>
+  <li>Networking</li>
+  <li>How GDM allocates virtual terminals impacts everything</li>
+  <li>What happens when you click suspend in the UI, then close the lid?</li>
 </ul>
 </article>
 
