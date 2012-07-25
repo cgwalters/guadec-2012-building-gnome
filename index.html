@@ -81,9 +81,7 @@ we can't make the entire Internet happy.</li>
       on the code, rely on binaries.  Which means in practice,
       we rely on "distributions".  And distributions here means
       <i>packages</i>.</li>
-  <li>Recent innovations like Live CDs help, but have downsides.</li>
 </ul>
-
 </article>
 
 <article>
@@ -95,7 +93,6 @@ we can't make the entire Internet happy.</li>
      apt-get/zypper/yum -> filesystem -> reboot -> see it</li>
 </ul>
 </article>
-
 
 <article>
 <h3 id="rpm-and-dpkg-versioning">RPM and dpkg make reverting regressions too hard</h3>
@@ -109,13 +106,22 @@ we can't make the entire Internet happy.</li>
 </article>
 
 <article>
-<h3 id="rpm-and-dpkg-even-worse">RPM and dpkg make development too hard</h3>
+<h3 id="improving-jhbuild-since-last-year">Improvements in jhbuild since last year</h3>
 <ul>
-  <li>Once you have a development version of GNOME installed via packages,
-      modifying it is incredibly painful</li>
-  <li>There's a reason we've kept using jhbuild</li>
-  <li>Cripples the "Get GNOME via Live CD" approach; you can see but you
-      can't modify</li>
+  <li>"sysdeps" extended</li>
+  <li>Delete no longer shipped files</li>
+  <li>War on -Werror</li>
+  <li>git clean -d -f -x</li>
+  <li>Default to parallel builds</li>
+</ul>
+</article>
+
+<article>
+<h3 id="jhbuild-why">Why are we still using jhbuild?</h3>
+<ul>
+  <li>Focused on actual source code in git</li>
+  <li>Parallel installs inside existing distribution</li>
+  <li>Package system agnostic</li>
 </ul>
 </article>
 
@@ -123,6 +129,14 @@ we can't make the entire Internet happy.</li>
 <h3 id="ostree-for-development">OSTree for developers and testers</h3>
 <ul>
   <li>"git for operating system builds"</li>
+  <li>Really just a new wrapper for <tt>make</tt>, <tt>tar</tt>, and <tt>wget</tt>, but:</li>
+  <li>You can now parallel install operating systems quite efficiently</li>
+</ul>
+</article>
+
+<article>
+<h3 id="ostree-for-development-2">OSTree properties</h3>
+<ul>
   <li>Has essential property, like jhbuild and Live CDs, that it
       does <i>not disrupt your existing system</i>.</li>
   <li>Unlike jhbuild, delivers a complete system; you reboot into it.</li>
@@ -145,24 +159,33 @@ we can't make the entire Internet happy.</li>
 </article>
 
 <article>
+<h3 id="removing-the-packaging-pressure">Not packaging</h3>
+<ul>
+  <li>Eliminates concept of packages (up to OS)</li>
+  <li>Package is partial filesystem with <tt>%post</tt> shell scripts
+      run as root attached</li>
+  <li>OSTree manages (immutable) <b>named filesystem trees</b></li>
+  <li>A <i>triggers</i> mechanism is centrally-maintained repository
+      of <tt>%post</tt> equivalent
+  <li>Ostbuild build system focused on source code in git
+      repositories</li>
+</ul>
+</article>
+
+<article>
 <h3 id="gnome-os-relation">"GNOME OS"</h3>
 <ul>
   <li>A term tossed about; means different things to different people</li>
-  <li>My <b>personal</b> motivations:</li>
+  <li>My <b>personal</b> motivation:</li>
   <li>Improve quality in FOSS (for everyone)</li>
-  <li>Return focus to actual source code (i.e. git), not packages</li>
-  <li>Eliminating the entire concept of "packages" also by side effect eliminates
-      most of the difference between "distributions"</li>
-  <li>But it still makes sense to include "GNOME" in much larger
-    collections such as Debian.</li>
 </ul>
 </article>
 
 <article>
 <h3 id="should-not-block-on-kde">Example: GNOME should not block on KDE</h3>
 <ul>
-  <li>For GNOME 3.0/Fedora 15, GNOME depended on NetworkManager
-      0.9, KDE depended on 0.8</li>
+  <li>For GNOME 3.0/Fedora 15, GNOME switched to NetworkManager 0.9,
+      KDE depended on 0.8</li>
   <li>Could be called a Fedora problem, but then there is a notable
       section of Fedora users that only use GNOME, and Fedora is
       currently an important mechanism by which GNOME code is
@@ -171,6 +194,15 @@ we can't make the entire Internet happy.</li>
       (necessarily) share binaries.</li>
 </ul>
 </article>
+
+<article>
+<h3 id="dont-package-meego">Example: Don't "package" MeeGO</h3>
+<ul>
+  <li>Rather than wrapping MeeGO in whatever package format:</li>
+  <li><tt>ostree-pull http://meego.org/repo meego-1.0-i686-runtime</tt></li>
+</ul>
+</article>
+
 
 <article>
 <h3 id="server-versus-client">Example: What should happen when you plug in an Ethernet cable?</h3>
@@ -189,11 +221,40 @@ we can't make the entire Internet happy.</li>
 <article>
 <h3 id="system-integration">The myth of the "DE"</h3>
 <ul>
-  <li>There's a bit more to it than picking some letters to prepend to DE</li>
+  <li>There's a bit more to it than picking some letters to prepend to
+      DE and writing a GTK+ window that sets <tt>_NET_WM_STRUT</tt></li>
   <li>Networking</li>
   <li>How GDM allocates virtual terminals impacts everything</li>
   <li>What happens when you click suspend in the UI, then close the lid?</li>
 </ul>
+</article>
+
+<article>
+<h3 id="issues-with-distributing-binaries">Issues with distributing binaries</h3>
+<ul>
+  <li>Security updates</li>
+</ul>
+</article>
+
+<article>
+<h3 id="issues-with-distributing-binaries-p2">Issues with distributing binaries, cont.</h3>
+<ul>
+  <li>Governance model</li>
+  <li>Branding</li>
+</ul>
+</article>
+
+<article>
+<h3 id="lets-do-it-anyways">Regardless, seeing latest GNOME is valuable</h3>
+<ul>
+  <li>Designers want to see what they're designing</li>
+  <li>(A) version of GCC/X.org everything compiles with is defined</li>
+  <li>Obvious place to host integration tests</li>
+</ul>
+</article>
+
+<article>
+<h3 id="questions">Questions?</h3>
 </article>
 
 </body>
