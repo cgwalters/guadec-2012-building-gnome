@@ -18,8 +18,8 @@
 <h3 id="why-are-we-here">Why are we here?</h3>
 
 <ul>
-  <li>GNOME is people and code that approximately orbit nuclei such as
-      GTK+, and Free Software.</li>
+  <li>GNOME is people and code that orbit GTK+, a driving user
+      interface, and Free Software</li>
   <li>People have different motivations</li>
 </ul>
 </article>
@@ -175,8 +175,9 @@ we can't make the entire Internet happy.</li>
 <article>
 <h3 id="architecture-details">Architecture</h3>
 <ul>
-  <li>Base system: Yocto (tarballs, cross compiler, stable)</li>
-  <li>Bootstraps to: "ostbuild" (git, chroot, continuous integration</li>
+  <li>Base system: Yocto (uid > 0, tarballs, cross compiler, stable)</li>
+  <li>Bootstraps to: "ostbuild" (uid > 0, git, same-arch chroot, continuous integration)</li>
+  <li>Contrast with dpkg/rpm: (uid ~= 0, tarballs, same-arch chroot, ~stable)</li>
 </ul>
 </article>
 
@@ -258,6 +259,15 @@ we can't make the entire Internet happy.</li>
   <li>Designers want to see what they're designing</li>
   <li>(A) version of GCC/X.org everything compiles with is defined</li>
   <li>Obvious place to host integration tests</li>
+</ul>
+</article>
+
+<article>
+<h3 id="more-mozilla-emulation">More stuff mozilla is doing, and we can too</h3>
+<ul>
+  <li><a href="http://graphs.mozilla.org">Performance-over-time data and graphs</li>
+  <li><a href="https://wiki.mozilla.org/ReleaseEngineering/TryServer/">Try Server</a></li>
+  <li><a href="https://wiki.mozilla.org/Platform/Features/Telemetry">Telemetry</a></li>
 </ul>
 </article>
 
