@@ -121,6 +121,7 @@ we can't make the entire Internet happy.</li>
 <ul>
   <li>Focused on actual source code in git</li>
   <li>Parallel installs inside existing distribution</li>
+  <li>Reasonably fast, allows partial builds</li>
   <li>Package system agnostic</li>
 </ul>
 </article>
@@ -130,7 +131,27 @@ we can't make the entire Internet happy.</li>
 <ul>
   <li>"git for operating system builds"</li>
   <li>Really just a new wrapper for <tt>make</tt>, <tt>tar</tt>, and <tt>wget</tt>, but:</li>
-  <li>You can now parallel install operating systems quite efficiently</li>
+  <li>You can now parallel install bootable things (OSes, distributions) efficiently</li>
+</ul>
+</article>
+
+<article>
+<h3 id="ostree-what-i-was-doing-before">Just another step in a long series of related things</h3>
+<ul>
+  <li><a href="http://packages.debian.org/squeeze/mini-dinstall">mini-dinstall</a> (2002)</li>
+  <li><a href="http://packages.debian.org/squeeze/cdbs">CDBS</a> (2003)</li>
+  <li>jhbuild <a href="https://bugzilla.gnome.org/show_bug.cgi?id=313997">eleventy billion times faster</a> "This patch ROCKS!" (2005)</li>
+  <li><a href="http://fedorapeople.org/gitweb?p=walters/public_git/rpmci.git">rpmci</a> (2010)</li>
+  <li><a href="https://mail.gnome.org/archives/desktop-devel-list/2011-July/msg00091.html">jhbuild sysdeps</a> (2011)</li>
+</ul>
+</article>
+
+<article>
+<h3 id="ostree-two-problems">High level motivations</h3>
+<ul>
+  <li>Files being ripped away by package systems while apps/system components are running</li>
+  <li>Continuous integration</li>
+  <li>Easier for Fedora QA to install LXDE than to help debug/fix GNOME</li>
 </ul>
 </article>
 
@@ -177,7 +198,7 @@ we can't make the entire Internet happy.</li>
 <ul>
   <li>Base system: Yocto (uid > 0, tarballs, cross compiler, stable)</li>
   <li>Bootstraps to: "ostbuild" (uid > 0, git, same-arch chroot, continuous integration)</li>
-  <li>Contrast with dpkg/rpm: (uid ~= 0, tarballs, same-arch chroot, ~stable)</li>
+  <li><i>Contrast</i> with dpkg/rpm: (uid ~= 0, tarballs, same-arch chroot, ~stable)</li>
 </ul>
 </article>
 
@@ -185,8 +206,9 @@ we can't make the entire Internet happy.</li>
 <h3 id="gnome-os-relation">"GNOME OS"</h3>
 <ul>
   <li>A term tossed about; means different things to different people</li>
-  <li>My <b>personal</b> motivation:</li>
-  <li>Improve quality in FOSS (for everyone)</li>
+  <li>My <b>personal</b> motivation: Improve quality in FOSS (for everyone)</li>
+  <li>Operating System(n): Your old binaries will run</li>
+  <li>Distribution(n): A set of packages</li>
 </ul>
 </article>
 
@@ -211,7 +233,6 @@ we can't make the entire Internet happy.</li>
   <li><tt>ostree-pull http://meego.org/repo meego-1.0-i686-runtime</tt></li>
 </ul>
 </article>
-
 
 <article>
 <h3 id="server-versus-client">Example: What should happen when you plug in an Ethernet cable?</h3>
@@ -259,6 +280,16 @@ we can't make the entire Internet happy.</li>
   <li>Designers want to see what they're designing</li>
   <li>(A) version of GCC/X.org everything compiles with is defined</li>
   <li>Obvious place to host integration tests</li>
+</ul>
+</article>
+
+<article>
+<h3 id="ostree-downsides">Downsides of OSTree as it exists today</h3>
+<ul>
+  <li>No guaranteed association between binaries and sources</li>
+  <li>Super young code, barely documented, I will change things at will</li>
+  <li>My first filesystem/VCS</li>
+  <li>/etc really hampers ability to downgrade</li>
 </ul>
 </article>
 
